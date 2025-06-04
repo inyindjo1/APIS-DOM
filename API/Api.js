@@ -12,4 +12,20 @@ export async function generateQRCode(text) {
   }
 }
 
+export async function saveQRCodeData(text) {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ qrText: text, timestamp: new Date().toISOString() }),
+    });
+
+    if (!response.ok) throw new Error('Failed to save QR code data');
+
+    return await response.json();
+  } catch (error) {
+    console.error('Save QR code error:', error);
+    return null;
+  }
+}
 
