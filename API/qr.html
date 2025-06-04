@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="sytles.css">
+    <script type="module" src="qr.js"></script>
+</head>
+<body>
+     <h2>QR Code Generator</h2>
+  <input type="text" id="qrText" placeholder="Enter text or URL" />
+  <button id="generateBtn">Generate QR Code</button>
+  <br />
+  <img id="qrcode" alt="Your QR code will appear here" />
+  <br />
+  <a id="downloadLink" href="#" style="display:none;" download="qrcode.png">Download QR Code</a>
+
+  <h3>History (click to regenerate)</h3>
+  <ul id="historyList"></ul>
+  <button id="resetBtn">Reset</button>
+
+
+</body>
+</html>
