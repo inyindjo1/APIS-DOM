@@ -23,5 +23,9 @@ export async function saveQRCodeData(text) {
     if (!response.ok) throw new Error('Failed to save QR code data');
 
     return await response.json();
-  } catch (error) 
-  
+  } catch (error) {
+    console.error('Save QR code error:', error);
+    return null;
+  }
+}
+
