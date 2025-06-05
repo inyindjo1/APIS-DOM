@@ -30,7 +30,7 @@ function renderHistory() {
   const history = getHistory();
   historyList.innerHTML = '';
   if (history.length === 0) {
-    historyList.innerHTML = '<li>No history yet</li>';
+    historyList.innerHTML = 'No history yet';
     return;
   }
   history.forEach(item => {
@@ -50,7 +50,7 @@ generateBtn.addEventListener('click', async () => {
   if (!input) {
     alert("Please enter text or a URL.");
     qrImg.src = '';
-    downloadLink.style.display = 'none';
+    downloadLink.style.display = '';
     return;
   }
 
@@ -85,8 +85,8 @@ resetBtn.addEventListener('click', () => {
   qrTextInput.value = '';
   qrImg.src = '';
   qrImg.alt = '';
-  downloadLink.style.display = 'none';
-  historyList.innerHTML = '<li>No history yet</li>';
+  downloadLink.style.display = '';
+  historyList.innerHTML = 'No history yet';
 });
 
 renderHistory();
