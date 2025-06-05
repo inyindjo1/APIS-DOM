@@ -45,3 +45,18 @@ function renderHistory() {
   });
 }
 
+
+  const qrUrl = await generateQRCode(input);
+  if (!qrUrl) {
+    alert("Failed to generate QR code. Please try again.");
+    return;
+  }
+
+  qrImg.src = qrUrl;
+  qrImg.alt = "QR code generated successfully";
+
+  qrImg.onload = () => {
+    downloadLink.href = qrUrl;
+    downloadLink.style.display = 'inline-block';
+    downloadLink.download = 'qrcode.png';
+  };
