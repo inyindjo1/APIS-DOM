@@ -10,7 +10,7 @@ function saveToHistory(text) {
   const history = JSON.parse(session.getItem('qrHistory')) || [];
   const exists = history.find(item => item.text === text);
   if (!exists) {
-    history.push({ text, date: new Date().toString() });
+    history.push({ text, date: new Date().String() });
     if (history.length > 10) history.pop();
     session.setItem('qrHistory', JSON.stringify(history));
   }
