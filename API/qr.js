@@ -60,3 +60,24 @@ function renderHistory() {
     downloadLink.style.display = 'inline-block';
     downloadLink.download = 'qrcode.png';
   };
+setTimeout(async () => {
+    const saved = await saveQRCodeData(input);
+    if (saved) {
+      saveToHistory(input);
+      renderHistory();
+    } else {
+      console.warn('Simulated POST failed');
+    }
+  }, 2000); 
+
+
+resetBtn.addEventListener('click', () => {
+  qrTextInput.value = '';
+  qrImg.src = '';
+  qrImg.alt = '';
+  downloadLink.style.display = 'none';
+  historyList.innerHTML = '<li>No history yet</li>';
+});
+
+renderHistory();
+
