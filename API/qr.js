@@ -1,5 +1,6 @@
 import { generateQRCode } from './Api.js';
 
+const memoryHistory = [];
 
 function saveQRCodeData(text) {
   console.log('POSTing QR code text to server (simulated):', text);
@@ -7,17 +8,15 @@ function saveQRCodeData(text) {
 }
 
 function saveToHistory(text) {
-  const history = JSON.parse(session.getItem('qrHistory')) || [];
-  const exists = history.find(item => item.text === text);
+  const exists = memoryHistory.find(item => item.text === text);
   if (!exists) {
-    history.push({ text, date: new Date().String() });
-    if (history.length > 10) history.pop();
-    session.setItem('qrHistory', JSON.stringify(history));
+    memoryHistory.push({ text, date: new Date().toISOString() });
+    if (memoryHistory.length > 10) memoryHistory.shift();
   }
 }
 
 function getHistory() {
-  return JSON.parse(session.getItem('qrHistory')) || [];
+  return memoryHistory;
 }
 
 const generateBtn = document.getElementById('generateBtn');
@@ -45,6 +44,15 @@ function renderHistory() {
   });
 }
 
+generateBtn.addEventListener('click', async () => {
+  const input = qrTextInput.value.trim();
+
+  if (!input) {
+    alert("Please enter text or a URL.");
+    qrImg.src = '';
+    downloadLink.style.display = 'none';
+    return;
+  }
 
   const qrUrl = await generateQRCode(input);
   if (!qrUrl) {
@@ -60,7 +68,9 @@ function renderHistory() {
     downloadLink.style.display = 'inline-block';
     downloadLink.download = 'qrcode.png';
   };
-setTimeout(async () => {
+
+  
+  setTimeout(async () => {
     const saved = await saveQRCodeData(input);
     if (saved) {
       saveToHistory(input);
@@ -69,7 +79,7 @@ setTimeout(async () => {
       console.warn('Simulated POST failed');
     }
   }, 2000); 
-
+});
 
 resetBtn.addEventListener('click', () => {
   qrTextInput.value = '';
