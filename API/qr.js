@@ -7,17 +7,17 @@ function saveQRCodeData(text) {
 }
 
 function saveToHistory(text) {
-  const history = JSON.parse(sessionStorage.getItem('qrHistory')) || [];
+  const history = JSON.parse(session.getItem('qrHistory')) || [];
   const exists = history.find(item => item.text === text);
   if (!exists) {
-    history.push({ text, date: new Date().toISOString() });
+    history.push({ text, date: new Date().toString() });
     if (history.length > 10) history.pop();
-    sessionStorage.setItem('qrHistory', JSON.stringify(history));
+    session.setItem('qrHistory', JSON.stringify(history));
   }
 }
 
 function getHistory() {
-  return JSON.parse(sessionStorage.getItem('qrHistory')) || [];
+  return JSON.parse(session.getItem('qrHistory')) || [];
 }
 
 const generateBtn = document.getElementById('generateBtn');
